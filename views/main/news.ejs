@@ -1,0 +1,39 @@
+<% layout("layout") -%>
+<div id="particles-js"></div>
+    <div class="container" style="width: 80%;">
+      <div class="row">
+        <div class="col-lg-12" style="padding-top: 5%;">
+          <h1 class="page-header page-title">
+            NEWS AND ANNOUNCEMENTS
+          </h1>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="width: 80%; padding-bottom: 2%;">
+              <% news.forEach(function(news){ %>
+              <center>
+              <div class="panel panel-body page-content" style="width: 80%; text-align: left;">
+                    <h3><%= news.title %></h3>
+                    <p><%= moment(news.publishDate).format("LL") %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= news.category %></p>
+                    <br>
+                    <p><%- ((news.content).substring(0, 150) + "...") %><a data-toggle="modal" data-target="#<%= news._id %>" style="color: #32a2c8;">&nbspRead more</a></p>
+    <div class="modal fade" id="<%= news._id %>" role="dialog">
+      <div class="modal-dialog modal-m" style="border-radius: 0px !important;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><%= news.title %></h4>
+            <label><%= moment(news.publishDate).format("LL") %></label>
+          </div>
+          <div class="modal-body" style="overflow-y: scroll; height: 250px;">
+              <label> <%- news.content %>
+              </label>
+          </div>
+        </div>
+      </div>
+    </div>
+              </div>
+              </center>
+                <% }); %>
+    </div>
