@@ -215,15 +215,16 @@ router.post('/register', function (req, res, next) {
   var pending = new Pending();
 
   console.log(req.body.firstName + " " + req.body.middleName + " " + req.body.lastName);
-if(req.body.stuno === 'new'){
-  User.findOne({
+if(req.body.neworold === 'new'){
+  console.log("new");
+  Pending.findOne({
     email: req.body.email,
-    idNumber: req.body.stuno,
-    name: req.body.firstName + " " + req.body.middleName + " " + req.body.lastName
-
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
   }, function (err, existingUser) {
-    if (existingUser.email === req.body.email && existingUser.lastName === req.body.lastName && existingUser.firstName === req.body.firstName && req.body.middleName === existingUser.middleName ) {
-      req.flash('errors', 'Account with that details already exist');
+    if (existingUser) {
+      console.log("new");
+      req.flash('message', 'Account with that details already exist');
       return res.redirect('back');
     } else {
       if (
@@ -270,7 +271,8 @@ if(req.body.stuno === 'new'){
       }
     }
   });
-} else {
+} else if (req.body.neworold === 'old'){
+  console.log("old");
   var studentNo = Number(req.body.stuno);
   var firstName = String(req.body.firstName);
   var lastName = String(req.body.lastName);
@@ -278,13 +280,14 @@ if(req.body.stuno === 'new'){
     .findOne({ 
       studentNo: studentNo, 
       firstName: firstName, 
-      lastName: lastName 
+      lastName: lastName ,
     }, function(err, data){
       if(err) return next(err);
       console.log('data', data);
       console.log('req.body', req.body);
       if(data){
         if(data.studentNo === studentNo && data.firstName === firstName && data.lastName === lastName){
+          
           if (
             // req.body.stuno &&
             req.body.firstName &&
@@ -299,8 +302,18 @@ if(req.body.stuno === 'new'){
             req.body.email &&
             req.body.contact
           ) {
-      
-            pending.studentNo = Number(req.body.stuno);
+
+            Pending.findOne({
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            }, function (err, existingUser) {
+              if (existingUser) {
+                console.log("new");
+                req.flash('message', 'Account with that details already exist');
+                return res.redirect('back');
+              } else{
+                pending.studentNo = Number(req.body.stuno);
             pending.firstName = req.body.firstName;
             pending.middleName = req.body.middleName;
             pending.lastName = req.body.lastName;
@@ -322,7 +335,11 @@ if(req.body.stuno === 'new'){
                 'Your account is in proccess now by the administrator',
               );
               return res.redirect('/register');
+            });    
+              }
             });
+      
+            
           } else {
             req.flash('errors', 'Please enter all the required information.');
             return res.redirect('/register');

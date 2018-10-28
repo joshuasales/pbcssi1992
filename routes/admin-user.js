@@ -3764,7 +3764,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
           Subject.updateMany({
             academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
           }, {
-            first: true
+            first: true,
+            postFirstGrading: true,
           }).exec(function (err, subjects) {
             if (err) return next(err);
             console.log("subjects exec: " + subjects);
@@ -3778,7 +3779,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
               Subject.updateMany({
                 academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
               }, {
-                first: true
+                first: true,
+                postFirstGrading: true,
               })
               Subject.find({}, function (err, secondSubjects) {
                 if (err) return next(err);
@@ -3792,7 +3794,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
           Subject.updateMany({
             academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
           }, {
-            second: true
+            second: true,
+            postSecondGrading: true,
           }).exec();
           Subject.find({
             academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
@@ -3803,7 +3806,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
               Subject.updateMany({
                 academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
               }, {
-                second: true
+                second: true,
+                postSecondGrading: true,
               })
               Subject.find({}, function (err, secondSubjects) {
                 if (err) return next(err);
@@ -3817,7 +3821,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
           Subject.updateMany({
             academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
           }, {
-            third: true
+            third: true,
+            postThirdGrading: true,
           }).exec();
           Subject.find({
             academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
@@ -3828,7 +3833,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
               Subject.updateMany({
                 academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
               }, {
-                third: true
+                third: true,
+                postThirdGrading: true,
               }).exec();
               Subject.find({}, function (err, secondSubjects) {
                 if (err) return next(err);
@@ -3842,7 +3848,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
             Subject.updateMany({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
             }, {
-              fourth: true
+              fourth: true,
+              postFourthGrading: true,
             }).exec()
             Subject.find({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
@@ -3853,7 +3860,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
                 Subject.updateMany({
                   academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
                 }, {
-                  fourth: true
+                  fourth: true,
+                  postFourthGrading: true,
                 }).exec()
                 Subject.find({}, function (err, secondSubjects) {
                   if (err) return next(err);
@@ -3867,7 +3875,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
             Subject.updateMany({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
             }, {
-              firstSemester: true
+              firstSemester: true,
+              postFirstSem: true,
             }).exec()
             Subject.find({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
@@ -3878,7 +3887,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
                 Subject.updateMany({
                   academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
                 }, {
-                  firstSemester: true
+                  firstSemester: true,
+                  postFirstSem: true,
                 }).exec()
                 Subject.find({}, function (err, secondSubjects) {
                   if (err) return next(err);
@@ -3892,7 +3902,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
             Subject.updateMany({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
             }, {
-              secondSemester: true
+              secondSemester: true,
+              postSecondSem: true,
             }).exec()
             Subject.find({
               academicYear: (new Date()).getFullYear() + "-" + ((new Date()).getFullYear() + 1)
@@ -3903,7 +3914,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
                 Subject.updateMany({
                   academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
                 }, {
-                  secondSemester: true
+                  secondSemester: true,
+                  postSecondSem: true,
                 }).exec()
                 Subject.find({}, function (err, secondSubjects) {
                   if (err) return next(err);
@@ -3919,7 +3931,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
             .updateMany({
               academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
             }, {
-              first: true
+              first: true,
+              postFirstGrading: true,
             }).exec();
           Subject.find({}, function (err, secondSubjects) {
             if (err) return next(err);
@@ -3931,7 +3944,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
           .updateMany({
             academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
           }, {
-            second: true
+            second: true,
+            postSecondGrading: true,
           }).exec();
         Subject.find({}, function (err, secondSubjects) {
           if (err) return next(err);
@@ -3941,7 +3955,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
         Subject.updateMany({
           academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
         }, {
-          third: true
+          third: true,
+          postThirdGrading: true,
         }).exec();
         Subject.find({}, function (err, secondSubjects) {
           if (err) return next(err);
@@ -3951,7 +3966,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
         Subject.updateMany({
           academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
         }, {
-          fourth: true
+          fourth: true,
+          postFourthGrading: true,
         }).exec();
         Subject.find({}, function (err, secondSubjects) {
           if (err) return next(err);
@@ -3961,7 +3977,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
         Subject.updateMany({
           academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
         }, {
-          firstSemester: true
+          firstSemester: true,
+          postFirstSem: true,
         }).exec();
         Subject.find({}, function (err, secondSubjects) {
           if (err) return next(err);
@@ -3971,7 +3988,8 @@ router.post("/studentlist", adminAuthentication, function (req, res, next) {
         Subject.updateMany({
           academicYear: ((new Date()).getFullYear() - 1) + "-" + (new Date()).getFullYear()
         }, {
-          secondSemester: true
+          secondSemester: true,
+          postSecondSem: true,
         }).exec();
         Subject.find({}, function (err, secondSubjects) {
           if (err) return next(err);
@@ -4017,7 +4035,13 @@ router.put("/studentlist", adminAuthentication, function (req, res, next) {
           third: false,
           fourth: false,
           firstSemester: false,
-          secondSemester: false
+          secondSemester: false,
+          postFirstGrading: false,
+          postSecondGrading: false,
+          postThirdGrading: false,
+          postFourthGrading: false,
+          postFirstSem: false,
+          postSecondSem: false,
         }).exec(function (err, subjects) {
           if (err) return next(err);
           console.log(subjects);
@@ -4031,7 +4055,13 @@ router.put("/studentlist", adminAuthentication, function (req, res, next) {
           third: false,
           fourth: false,
           firstSemester: false,
-          secondSemester: false
+          secondSemester: false,
+          postFirstGrading: false,
+          postSecondGrading: false,
+          postThirdGrading: false,
+          postFourthGrading: false,
+          postFirstSem: false,
+          postSecondSem: false,
         }).exec(function (err, subjects) {
           if (err) return next(err);
           console.log(subjects);
