@@ -336,12 +336,19 @@ router.get('/data', function (req, res, next) {
 
 router.post('/data', function (req, res, next) {
   var data = new Data();
-
-  // Vmos.findByIdAndRemove(req.body.id, function (err, vmos) {});
-  data.studentNo = req.body.studentNo;
-  data.firstName = req.body.firstName;
-  data.lastName = req.body.lastName;
-  data.save(function (err, data) {
+  var stuno = Number(req.body.studentNo);
+  Data
+    .findOne({
+      studentNo: stuno,
+    },
+    function (err, existdata) {
+      if(err) return next (err);
+      console.log("pasok");
+      if (!existdata) {
+          data.studentNo = req.body.studentNo;
+          data.firstName = req.body.firstName;
+          data.lastName = req.body.lastName;
+          data.save(function (err, data) {
     console.log(data);
     if (err) return next(err);
     req.flash(
@@ -351,6 +358,14 @@ router.post('/data', function (req, res, next) {
     console.log("updated")
     res.redirect('/data');
   });
+  req.flash('message', 'Data uploaded successfully!');
+  }else{
+    console.log("pasok else");
+    req.flash('message', 'Student number is already taken');
+    res.redirect('/data');
+  }
+  },
+  );    
 });
 
 router.post('/reset/:token', function (req, res) {

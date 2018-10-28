@@ -77,8 +77,21 @@ router.get(
 );
 
 router.post('/encode-grades', facultyAuthentication, function (req, res, next) {
-  var grades = [];
-  console.log('ohh: ' + req.body.toggle);
+
+  User.findOne({
+    password: req.user.password,
+  }, function (err, user){
+    if (err) return next(err);
+
+    if(!user){
+      req.flash('message','Incorrect Password!');
+      console.log("mali password" + req.user.password);
+      return res.redirect("back")
+    }else{
+
+        var grades = [];
+        console.log("mali password" + req.user.password);
+  console.log('ohh: ' + user.password);
   var toggle = req.body.toggle;
   var password = (req.body.password).toString();
   var userPass = req.user.password;
@@ -235,21 +248,6 @@ router.post('/encode-grades', facultyAuthentication, function (req, res, next) {
     }
     res.redirect('/viewencoded-grades');
 
-    // Subject.findById(req.params.id)
-    // .exec(function(err, subject){
-    //   if(err) return next(err);
-    //   subject.firstGrading = req.body.firstGrading;
-    //   subject.secondGrading = req.body.secondGrading;
-    //   subject.thirdGrading = req.body.thirdGrading;
-    //   subject.fourthGrading = req.body.fourthGrading;
-    //   subject.finalGrading = req.body.finalGrading;
-    //   subject.remarks = req.body.remarks;
-    //   subject.save(function(err, subject){
-    //     if(err) return next(err);
-    //     console.log(subject);
-    //     return res.redirect("back");
-    //   });
-    // });
   } else if (toggle == 'true' || toggle == true) {
     console.log('pasok');
     if (!(req.body.yrLvl === 'grade11' || req.body.yrLvl === 'grade12')) {
@@ -374,6 +372,10 @@ router.post('/encode-grades', facultyAuthentication, function (req, res, next) {
     }
     res.redirect('/viewencoded-grades');
   }
+
+    }
+  },);
+
 });
 
 router.post('/encode-grades/save', facultyAuthentication, function (
