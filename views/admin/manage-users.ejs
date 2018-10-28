@@ -1,10 +1,11 @@
 <% if(message.length >0){ %>
-  <div class="alert alert-warning alert-dismissible" style="position: absolute;
-	top: 0px;
-	right: 1%;
+  <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+	top: 15%;
+	right: 35%;
 	height: 100px;
 	width: 400px;
-	z-index: 99;">
+	z-index: 99;
+  animation-iteration-count: 4;">
     <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
 
@@ -13,31 +14,32 @@
   </div>
   <% } %>
     <% layout("layout") -%>
+    <div id="particles-js"></div>
       <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;">
         <div class="col-lg-12">
           <% include ../partials/adminpanel %>
         </div>
       </div>
+      <div class="container">
       <div class="col-sm-6">
         <div class="container">
 
-          <div class="panel panel-info  col-sm-9" id="myScrollspy" style="padding: 0px; margin-top: 80px; min-height:500px;">
+          <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy" style="padding: 0px; margin-top: 80px; margin-bottom: 5%; min-height:500px;">
 
             <div class="panel-heading" style="color: #ffffff;">
               Manage Registration
 
             </div>
             <br>
-            <form id="delete-form" action="/manage" method="GET">
+            <form id="delete-form" action="/manage" method="GET" style="padding: 2%;">
             <select class="btn btn-default" name="sort">
               <option> Select an option.. </option>
               <option value="lastname">Sort By Last Name </option>
             </select>
             <button class="btn btn-info">Sort</button>
             </form>
-            <br/>
             <div class="table-responsive">
-              <div style="overflow-y: scroll; height:450px; ">
+              <div style="overflow-y: scroll; height:450px; margin-top: 2%;">
                 <table class="table table-striped">
                   <thead>
                     <tr>
@@ -101,5 +103,5 @@
         </div>
       </div>
       </div>
-
+      </div>
       </div>

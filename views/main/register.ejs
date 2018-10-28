@@ -26,6 +26,7 @@
               <br>
             </div>
           </div>
+          <div class="container">
             <div class="col-sm-6" style="padding-right: 8%;">
             <p>Register now and be a part of our growing community! After filling up and submitting the necessary details, follow these admission procedures to become an official Sunbeamer.</p>
             <br>
@@ -49,14 +50,14 @@
             </div>
             <div class="container" id="reg-info">
                 <div class="col-sm-6">
-                    <select onchange="student()" name="status" id="neworold" class="tbox">
-                      <option value="new" style="color: #000000">New Student</option>
-                      <option value="old" style="color: #000000">Old Student</option>
-                    </select>
-                    <br>
+
 
                     <br>
                     <form id="register-data" action="/register" method="POST" style="width:80%;">
+                    <select onchange="student()" name="neworold" id="neworold" class="tbox">
+                      <option value="new" style="color: #000000">New Student</option>
+                      <option value="old" style="color: #000000">Old Student</option>
+                    </select>
                       <div class="form-group" id="stno" style="display: none">
                         <label for="pwd">Student no:</label>
                         <input type="number" class="form-control tbox" name="stuno" id="stuno">
@@ -132,13 +133,16 @@
                         <span class="fa fa-list-alt"></span> Register</button>
                     </form>
                     </div>
-                    
+                    </div>
                     <br>
                     <% if(success && success.length >0){ %>
-                      <div class="alert alert-success alert-dismissible">
+                      <div class="alert alert-success alert-dismissible" style="position: absolute; top: 10%;
+                      right: 35%;
+                      height: 100px;
+                      width: 400px;
+                      z-index: 99;"">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
-
                         </button>
                         <%= success %>
                       </div>

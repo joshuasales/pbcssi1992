@@ -1,10 +1,11 @@
 <% if(message.length >0){ %>
-  <div class="alert alert-warning alert-dismissible" style="position: absolute;
-	top: 0px;
-	right: 1%;
+  <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+	top: 15%;
+	right: 35%;
 	height: 100px;
 	width: 400px;
-	z-index: 99;">
+	z-index: 99;
+  animation-iteration-count: 4;">
     <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
 
@@ -13,22 +14,24 @@
   </div>
   <% } %>
     <% layout("layout") -%>
+    <div id="particles-js"></div>
       <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;" overflow-x: hidden;>
         <div class="col-lg-12">
           <% include ../partials/adminpanel %>
         </div>
       </div>
+      <div class="container">
       <div class="col-sm-6">
         <div class="container">
-          <div class="panel panel-info  col-sm-9" id="myScrollspy" style="padding: 0px; margin-top: 80px; min-height: 500px;">
+          <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy" style="padding: 0px; margin-top: 80px; min-height: 500px;">
             <div class="panel-heading" style="color: #ffffff;">
 
               Manage Enrollment
 
             </div>
             <div class="row">
-              <div class="dropdown" style="margin-top:5px; margin-left: 2%">
-                <button style="border-radius: 5px;" class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown">--Sort By--
+              <div class="dropdown oh" style="margin-left: 2%">
+                <button style="border-radius: 3px; padding: 3%; font-size: 14px; height: 30px; width: 150%;" class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown">--Sort By--
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -40,10 +43,10 @@
                   </li>
                 </ul>
               </div>
-              <div style="margin-left: 2%; margin-bottom: 1%">
+              <div class="oh" style="right: 10%; margin-left: 2%; margin-bottom: 1%;">
                 <form id="delete-form" action="/enrollment" method="GET">
-                  <input type="text" name="idNumber" class="btn btn-default" />
-                  <button class="btn btn-info">Find</button>
+                  <input type="text" name="idNumber" class="btn btn-default" style="height: 30px;"/>
+                  <button class="btn btn-info oh" style="float: right; width: 60px; margin-left: 10px; height: 30px;">Find</button>
                 </form>
               </div>
             </div>
@@ -87,6 +90,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
       <script>
         function postLastName() {

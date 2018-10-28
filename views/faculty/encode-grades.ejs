@@ -1,10 +1,11 @@
 <% if(message && message.length >0){ %>
-    <div class="alert alert-warning alert-dismissible" style="position: absolute;
-	top: 0px;
-	right: 1%;
+    <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+	top: 15%;
+	right: 35%;
 	height: 100px;
 	width: 400px;
-	z-index: 99;">
+	z-index: 99;
+    animation-iteration-count: 4;">
         <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
 
@@ -12,15 +13,17 @@
         <%= message %>
     </div>
     <% } %>
-        <% layout("layout") -%>
+            <% layout("layout") -%>
+        <div id="particles-js"></div>
             <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;" overflow-x: hidden;>
                 <div class="col-lg-12">
                     <% include ../partials/facultypanel %>
                 </div>
             </div>
+            <div class="container">
             <div class="col-sm-6">
                 <div class="container">
-                    <div class="panel panel-info  col-sm-9" id="myScrollspy" style="padding: 0px; margin-top: 80px; height:460px;">
+                    <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy page-content" style="padding: 0px; margin-top: 80px; height:460px;">
 
                         <div class="panel-heading" style="color: #ffffff;">Encode Student Grades
                             <div style="float: right;">
@@ -49,19 +52,19 @@
                         <div class="container ">
                             <br>
                             <label for="usr " style="margin-left: 5px; ">Year:
-                                <br>
+                                
                                 <strong>
                                     <%= yrLvl %>
                                 </strong>
                             </label>
-                            <label for="usr " style="margin-left: 55px; ">Section:
-                                <br>
+                            <label for="usr " style="margin-left: 30px; ">Section:
+                                
                                 <strong>
                                     <%= section %>
                                 </strong>
                             </label>
                             <label for="usr " style="margin-left: 30px; ">Subject:
-                                <br>
+                                
                                 <strong>
                                     <%= subject %>
                                 </strong>
@@ -108,7 +111,7 @@
                                                                     <%= subject.middleName %>
                                                         </td>
                                                         <td>
-                                                            <% if(subject.first == true || subject.first == "true"){ %>
+                                                            <% if((subject.first == true || subject.first == "true")&&(subject.postFirstGrading == true || subject.postFirstGrading == "true")){ %>
                                                                 <input id="first" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"
                                                                     type="text" min="0" max="100" style="width:60px;" class="form-control">
                                                                 <%} else{ %>
@@ -117,7 +120,7 @@
                                                                     <% } %>
                                                         </td>
                                                         <td>
-                                                            <% if(subject.second == true || subject.second == "true"){ %>
+                                                            <% if((subject.second == true || subject.second == "true")&&(subject.postSecondGrading == true || subject.postSecondGrading == "true")){ %>
                                                                 <input id="second" value="<%= subject.secondGrading %>" name="secondGrading[]" type="text" min="0" max="100" maxlength="2"
                                                                     oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                 <% }else{ %>
@@ -126,7 +129,7 @@
                                                                     <% } %>
                                                         </td>
                                                         <td>
-                                                            <% if(subject.third == true || subject.third == "true"){ %>
+                                                            <% if((subject.third == true || subject.third == "true")&&(subject.postThirdGrading == true || subject.postThirdGrading == "true")){ %>
                                                                 <input id="third" value="<%= subject.thirdGrading %>" name="thirdGrading[]" type="text" min="0" max="100" maxlength="2" oninput="numberOnly(this.id);"
                                                                     style="width:60px" class="form-control">
                                                                 <% }else{ %>
@@ -135,7 +138,7 @@
                                                                     <% } %>
                                                         </td>
                                                         <td>
-                                                            <% if(subject.fourth == true || subject.fourth == "true"){ %>
+                                                            <% if((subject.fourth == true || subject.fourth == "true")&&(subject.postFourthGrading == true || subject.postFourthGrading == "true")){ %>
                                                                 <input id="fourth" value="<%= subject.fourthGrading %>" name="fourthGrading[]" type="text" min="0" max="100" maxlength="2"
                                                                     oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                 <% }else {%>
@@ -182,7 +185,7 @@
                                                                     </td>
                                                                     <td>
 
-                                                                        <% if(subject.firstSemester == true || subject.firstSemester == "true"){ %>
+                                                                        <% if((subject.firstSemester == true || subject.firstSemester == "true")&&(subject.postFirstSem == true || subject.postFirstSem == "true")){ %>
                                                                             <input id="firstSem" value="<%= subject.firstSem %>" name="firstSem[]" type="text" min="0" max="100" maxlength="2" style="width:60px"
                                                                                 class="form-control">
                                                                             <% }else{ %>
@@ -191,7 +194,7 @@
                                                                                 <% } %>
                                                                     </td>
                                                                     <td>
-                                                                        <% if(subject.secondSemester == true || subject.secondSemester == "true"){ %>
+                                                                        <% if((subject.secondSemester == true || subject.secondSemester == "true")&&(subject.postSecondSem == true || subject.postSecondSem == "true")){ %>
                                                                             <input id="secondSem" value="<%= subject.secondSem %>" name="secondSem[]" type="text" min="0" max="100" maxlength="2" style="width:60px"
                                                                                 class="form-control">
                                                                             <% }else{ %>
@@ -203,23 +206,23 @@
                                                                 <% }); %>
                                                                     <% } %>
                                                                         <div class="modal fade" id="encodeModal" role="dialog">
-                                                                            <div class="modal-dialog modal-sm" sty>
+                                                                            <div class="modal-dialog modal-sm">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header">
                                                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                                         <div class="row">
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="row">
-                                                                                        <div style="padding-top: 50px;">
-                                                                                            <div style="margin-top:-70px;">
-                                                                                                <br>
+                                                                                    <div class="panel-body">
+                                                                                        <div style="padding: 1%;">
+                                                                                            <div>
+                                                            
                                                                                                 <label style="color:black; font-weight:bold;">Password:</label>
                                                                                                 <input class="form-control" type="password" name="password" placeholder="PASSWORD">
                                                                                                 <br>
 
                                                                                                 <center>
-                                                                                                    <button id="pink" onClick=submitForms() "" class="btn btn-primary" style=" border-radius:5px;font-weight:bold; font-family:Verdana; width: 50%;">Confirm</button>
+                                                                                                    <button id="pink" onClick=submitForms() "" class="btn btn-primary" style=" border-radius:5px;font-weight:bold; font-family:Century Gothic; width: 50%;">Confirm</button>
                                                                                                 </center>
                                                                                             </div>
 
@@ -230,6 +233,7 @@
                                                                         </div>
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <div class="modal fade" id="saveModal" role="dialog">
@@ -244,16 +248,16 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div style="padding-top: 50px;">
-                                        <div style="margin-top:-70px;">
+                                <div class="panel-body">
+                                    <div style="padding: 1%;">
+                                        <div>
                                             <br>
                                             <label style="color:black; font-weight:bold;">Password:</label>
                                             <input class="form-control" type="password" name="password" placeholder="PASSWORD">
                                             <br>
 
                                             <center>
-                                                <button id="pink" onClick="saveForm()" class="btn btn-primary" style=" border-radius:5px;font-weight:bold; font-family:Verdana; width: 50%;">Confirm</button>
+                                                <button id="pink" onClick="saveForm()" class="btn btn-primary" style=" border-radius:5px;font-weight:bold; font-family:Century Gothic; width: 50%;">Confirm</button>
                                             </center>
                                         </div>
 
@@ -269,10 +273,10 @@
             </form>
 
             </table>
-            <div style="margin-top:195px; margin-left:610px;">
-                <button id="encode" style="width: 100px;" class="btn btn-success" onClick="submitForms()">
+            <div style="margin-top:5%; margin-left:610px;">
+                <button id="encode" style="width: 100px;" class="btn btn-success" data-toggle="modal" data-target="#encodeModal">
                     ENCODE</button>
-                <button style="width: 100px; margin-right:5px;" class="btn btn-success" onClick="saveForm()">
+                <button style="width: 100px; margin-right:5px;" class="btn btn-success" data-toggle="modal" data-target="#saveModal">
                     SAVE</button>
             </div>
             </div>

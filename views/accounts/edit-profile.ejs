@@ -1,10 +1,11 @@
 <% if(errors.length >0){ %>
-  <div class="alert alert-danger alert-dismissible" style="position: absolute;
-  top: 0px;
-  right: 1%;
+  <div class="alert alert-danger alert-dismissible animated bounce" style="position: absolute;
+  top: 15%;
+  right: 35%;
   height: 100px;
   width: 400px;
-  z-index: 99;">
+  z-index: 99;
+  animation-iteration-count: 4">
     <button type="button" class="close" id="btn" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
 
@@ -16,6 +17,7 @@
 
 
     <% layout("layout") -%>
+      <div id="particles-js"></div>
       <% if(user.user === "admin"){ %>
         <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;" overflow-x: hidden;>
           <div class="col-lg-12">
@@ -31,8 +33,9 @@
                               <% } %>
                           </div>
                         </div>
+                        <div class="container">
                         <div class="col-sm-6">
-                          <div class="container">
+                          <div class="container" style="padding-bottom: 2%;">
                             <div class="panel panel-info col-sm-9" style="padding: 0px; margin-top: 80px;" overflow-x: hidden;>
                               <div class="panel-heading" style="color: #ffffff;">
 
@@ -47,19 +50,11 @@
                                     <div class="col-md-6 col-sm-6 text-center">
                                     </div>
                                   </div>
-                                  <div class="container">
+                                  <div class="container page-content">
                                     <div class="row">
                                       <div class="col-md-8 " style="margin-top: 20px;">
 
-                                        <!-- <div class="form-group">
-                    <label for="name">ID No:</label>
-                    <select id="userNumber" class="form-control" name="idNum">
-                      <option>
-
-                      </option>
-                    </select>
-                  </div> -->
-                                        <form action="/edit-profile" method="POST">
+                                      <form action="/edit-profile" method="POST">
                                           <center>
                                             <% if(message.length >0){ %>
                                               <div class="alert alert-success alert-dismissible">
@@ -110,7 +105,7 @@
                               </div>
                               <div class="form-group" style="width:86%; margin-left:5%;">
                                 <div class="text-center">
-                                  <button disabled id="update" class="btn btn-success form-control" style="height:4%;font-weight:bold; color:black">Update</button>
+                                  <button disabled id="update" class="btn btn-success form-control" style="height:4%;font-weight:bold; color:white; background-color: #020531; margin-bottom: 2%;">Update</button>
                                 </div>
                                 </form>
 
@@ -118,6 +113,7 @@
                             </div>
                           </div>
                         </div>
+                  </div>
                   </div>
                   <script type="text/javascript">
                     function change() {
