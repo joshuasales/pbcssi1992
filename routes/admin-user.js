@@ -4519,7 +4519,7 @@ router.delete('/deletemessage/:id', adminAuthentication, function (req, res, nex
 });
 
 router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res, next) {
-  console.log("lol")
+  console.log(req.body.email);
             var smtpTransport = nodemailer.createTransport(
               transporter({
                 service: 'Gmail',
