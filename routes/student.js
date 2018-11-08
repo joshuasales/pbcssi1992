@@ -59,7 +59,7 @@ router.post('/createliteraryworks', function(req, res, next) {
       if (err) return next(err);
       req.flash(
         'success',
-        'Your account is in proccess now by the administrator',
+        'Your work is in proccess now by the administrator',
       );
       console.log(literary);
       res.redirect('/createliteraryworks');

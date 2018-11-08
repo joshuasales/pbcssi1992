@@ -12,6 +12,7 @@ var Literary = require('../models/literary');
 var Subject = require('../models/subject');
 var Handle = require('../models/facultyHandle');
 var Vmos = require('../models/vmos');
+var Messages = require('../models/messages');
 var async = require('async');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
@@ -4490,6 +4491,68 @@ router.post("/managepubs/accept", adminAuthentication, function (req, res, next)
     return res.redirect("/managepubs");
   }
 
+});
+
+router.get('/inquiries', adminAuthentication, function (req, res, next) {
+  Messages.find({
+    archive: false
+    }).sort({
+      publishDate: -1
+    }).exec(function (err, allMessages) {
+      if (err) return next(err);
+      res.render('admin/inquiries', {
+        allMessages: allMessages
+      });
+    });
+});
+
+router.delete('/deletemessage/:id', adminAuthentication, function (req, res, next) {
+  Messages.findById(req.params.id, function (err, messages) {
+    messages.archive = true;
+    messages.content = req.sanitize(req.body.content);
+    messages.save(function (err, news) {
+      if (err) return next(err);
+      req.flash("message", "Message deleted!");
+      res.redirect('/inquiries');
+    });
+  });
+});
+
+router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res, next) {
+  console.log("lol")
+            var smtpTransport = nodemailer.createTransport(
+              transporter({
+                service: 'Gmail',
+                auth: {
+                  user: 'pbcssinc@gmail.com',
+                  pass: 'Pbcssinc!123',
+                },
+              }),
+            );
+            var mailOptions = {
+              to: req.body.email,
+              from: 'pbcssinc@gmail.com',
+              subject: 'New Account Created',
+              text: 'Username:' +
+                '\n\n' +
+                user.email +
+                '\n\n' +
+                'Password:' +
+                req.body.password
+            };
+            smtpTransport.sendMail(mailOptions, function (err) {
+              if (err) return next(err);
+              console.log('mail sent');
+              req.flash(
+                'message',
+                'An e-mail has been sent to ' +
+                user.email,
+              );
+            });
+            if (err) return next(err);
+
+            req.flash("message", "You successfully created a new account");
+            res.redirect('/users/new');
 });
 
 function escapeRegex(text) {
