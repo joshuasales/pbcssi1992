@@ -7,6 +7,7 @@ var Pending = require('../models/pending');
 var Subject = require('../models/subject');
 var News = require('../models/newsAndAnnouncement');
 var Data = require('../models/data');
+var Messages = require('../models/messages');
 
 var Literary = require('../models/literary');
 
@@ -408,12 +409,32 @@ router.get('/service', function (req, res, next) {
 router.get('/vmop', function (req, res, next) {
   Vmos.find({}, function (err, visionmission) {
     if (err) return next(err);
-    console.log(visionmission[0].vision);
     res.render('main/vmop', {
       visionmission: visionmission
     });
   });
   // res.render('main/vmop');
+});
+
+router.get('/messageus',function (req, res, next){
+  res.render('main/messageus');
+});
+
+router.post('/sendmessage',function(req, res, next){
+  var messages = new Messages();
+  messages.email = req.body.email;
+  messages.subject = req.body.subject;
+  messages.content = req.sanitize(req.body.content);
+  messages.save(function(err, messages){
+      if (err) return next(err);
+      req.flash(
+        'message',
+        'You have successfully sent a message.',
+      );
+      console.log(messages);
+      res.redirect('/messageus');
+  });
+  console.log(req.body);
 });
 
 function escapeRegex(text) {
