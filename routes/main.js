@@ -178,13 +178,18 @@ router.get('/faculty', function (req, res, next) {
   res.render('main/faculty');
 });
 router.get('/publication', function (req, res, next) {
-  Literary.find({
-    status: true
-  }, function (err, literaries) {
-    res.render('main/Publication', {
-      literaries: literaries
+  News.find({
+      status: true
+    })
+    .sort({
+      litNumber: -1
+    })
+    .exec(function (err1, literaries) {
+          if (err1) return next(err1);
+          res.render('main/Publication', {
+            literaries: literaries,
+          });
     });
-  });
 });
 router.get('/facultyviewpubs', function (req, res, next) {
   res.render('faculty/viewpublication');
