@@ -4532,13 +4532,9 @@ router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res,
             var mailOptions = {
               to: req.body.email,
               from: 'pbcssinc@gmail.com',
-              subject: 'New Account Created',
-              text: 'Username:' +
-                '\n\n' +
-                user.email +
-                '\n\n' +
-                'Password:' +
-                req.body.password
+              subject: 'Re: '+ req.body.subject,
+              text: req.body.content
+                
             };
             smtpTransport.sendMail(mailOptions, function (err) {
               if (err) return next(err);
@@ -4546,13 +4542,13 @@ router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res,
               req.flash(
                 'message',
                 'An e-mail has been sent to ' +
-                user.email,
+                req.body.email,
               );
             });
             if (err) return next(err);
 
-            req.flash("message", "You successfully created a new account");
-            res.redirect('/users/new');
+            req.flash("message", "Message Sent");
+            res.redirect('/inquiries');
 });
 
 function escapeRegex(text) {
