@@ -4545,7 +4545,7 @@ router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res,
                 req.body.email,
               );
             });
-            if (err) return next(err);
+            
 
             req.flash("message", "Message Sent");
             res.redirect('/inquiries');
