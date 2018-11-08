@@ -4148,6 +4148,9 @@ router.post('/vmos', function (req, res, next) {
   // Vmos.findByIdAndRemove(req.body.id, function (err, vmos) {});
   vmos.vision = req.body.vision;
   vmos.mission = req.body.mission;
+  vmos.philosophy = req.body.philosophy;
+  vmos.objectives = req.body.objectives;
+
   vmos.save(function (err, vmos) {
     if (err) return next(err);
     req.flash(
