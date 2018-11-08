@@ -10,6 +10,14 @@ var vmosSchema = new mongoose.Schema({
     	type: String,
     	default: 'mission'
     },
+    philosophy: {
+        type: String,
+        default: 'mission'
+    },
+    objectives: {
+        type: String,
+        default: 'mission'
+    },
     publishDate: {
         type: Date,
         default: Date.now()
