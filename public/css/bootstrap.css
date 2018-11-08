@@ -7216,6 +7216,14 @@ button.close {
   color: #ffffff !important;
 }
 
+.messageus{
+  background-image: url('/images/h2.png');
+  background-size: cover;
+  height: auto;
+  width: 100%;
+  color: #ffffff !important;
+}
+
 .page-content{
   color: #020531 !important;
 }
