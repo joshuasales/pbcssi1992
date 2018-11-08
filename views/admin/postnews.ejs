@@ -67,14 +67,9 @@
   </div>
   </div>
   </div>
-
-  <script>
-    function discard() {
+      <script type="text/javascript">
+      function discard() {
       document.getElementById("title").value = "";
-      document.getElementById("content").value = "";
-    }
-    // var dateScript = new Date();
-    // var thisYear = dateScript.getYear();
-    // $("#postNumber").append('<option value="' +  thisYear<%= counter %> + '">' + thisYear<%= counter %> + '</option>');
-
-  </script>
+      tinyMCE.activeEditor.setContent("");
+      }
+      </script>

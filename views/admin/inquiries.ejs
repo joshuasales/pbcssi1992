@@ -1,0 +1,181 @@
+<% if(message && message.length >0){ %>
+  <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+  top: 15%;
+  right: 35%;
+  height: 100px;
+  width: 400px;
+  z-index: 99;
+  animation-iteration-count: 4;">
+    <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+    <%= message %>
+  </div>
+  <% } %>
+    <% layout("layout") -%>
+    <div id="particles-js"></div>
+      <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;" overflow-x: hidden;>
+        <div class="col-lg-12">
+          <% include ../partials/adminpanel %>
+        </div>
+      </div>
+      <div class="container">
+      <div class="col-sm-6">
+        <div class="container">
+          <div class="panel panel-info col-sm-9 page-content" id="myScrollspy" style="padding: 0px; margin-top: 80px; min-height:500px;">
+
+            <div class="panel-heading" style="color: #ffffff;">
+
+              Manage Inquiries
+
+            </div>
+            <label for="usr" style="margin-left: 5px; margin-top: 15px;">Category:</label>
+            <div class="table-responsive">
+              <div style="overflow-y: scroll; height:350px; ">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="color: #ffffff; background-color: #020531;">Email</th>
+                      <th style="color: #ffffff; background-color: #020531;">Subject</th>
+                      <th style="color: #ffffff; background-color: #020531;">Date Sent</th>
+                      <th style="color: #ffffff; background-color: #020531;">Action</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% allMessages.forEach(function(messages){ %>
+                      <tr>
+                        <td>
+                          <%= messages.email %>
+                        </td>
+                        <td>
+                          <%= messages.subject %>
+                        </td>
+                        <td>
+                          <%= moment(messages.publishDate).format("LL") %>
+                        </td>
+                        <td>
+                          <form id="delete-form" action="/deletemessage/<%= messages._id %>?_method=DELETE" method="POST">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#del<%= messages._id %>">
+                              <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+
+                                <div class="modal fade" id="del<%= messages._id %>" role="dialog">
+      <div class="modal-dialog modal-sm" style="width: 40%; background-color: #144f82 !important; border-radius: 0px;">
+        <div class="modal-content">
+          <div style="background-color: #021b32; float: left; width: 40%; color: #ffffff; padding-bottom: 2.6%;">
+          <center>
+          <img src="/images/Sunbeam.png" height="45%" width="45%" style="padding-top: 12%;">
+          <h3 style="font-family: Century Gothic; font-size: 24px;">Delete<br>Message</h3>
+          </center>
+          <br>
+          <br><br>
+
+          </div>
+
+          <div class="row">
+            <div style="padding-top: 8.4%; width: 60%; float: right; background-color: #144f82;">
+              <form action="/login" method="POST" class="col-auto" style="margin-top: 1%; margin-left: 10%; margin-right: 10%; box-shadow: none; border-radius: 10px; background-color: #144f82; height: 50%; width:80%;">
+              <br><br>
+                <div>
+                  <center><p style=" color: #ffffff;font-family: Century Gothic; font-size: 18px;">Do you want to delete this?</p></center>
+                    <div style="text-align: center;">
+                    <br><br><br>
+                    
+                    <button class="btn btn-primary" style="border-radius:4px; width: 100px; font-family: Century Gothic;">YES</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="border-radius:4px; width: 100px; font-family: Century Gothic;">NO</button>
+                    
+                    <br>
+                    <br>
+                    <br>
+                    </div>
+                  </center>
+                  <br>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+                          </form>
+                          <form id="delete-form" action="/replymessage/<%= messages._id %>/reply" method="POST">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#<%= messages._id %>">
+                              <i class="fa fa-edit" aria-hidden="true"></i>
+                            </button>
+                            <!-- Modal -->
+                            <div id="<%= messages._id %>" class="modal fade" role="dialog">
+                              <div class="modal-dialog modal-lg"  style="width: 62%;">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Reply to Sender</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <label for="usr">Subject:</label>
+                                      <input value="<%= messages.subject %>" name="title" type="text" class="form-control" id="usr">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="comment">Content:</label>
+                                      
+                                        <%= messages.content %>
+                                      
+                                    </div>
+                                    <div class="form-group">
+                                          <label for="comment">Reply:</label>
+                                          <textarea name="content" class="form-control" rows="5" id="comment">
+                                            
+                                          </textarea>
+                                        </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button class="btn btn-default">UPDATE</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </td>
+                      </tr>
+                      <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- //modal -->
+      </div>
+      <script>
+        function postForm() {
+          var postNum = document.getElementById("postNum");
+          var postNumVal = (postNum.value = "postNumber");
+          console.log(postNumVal);
+          $("#postForm").submit();
+        }
+
+        function postCategory() {
+          var postCategory = document.getElementById("postCategory");
+          var postNumVal = (postNum.value = "postNews");
+          console.log(postNumVal);
+          $("#postFormCategory").submit();
+        }
+
+        function postAnnounce() {
+          var postCategory = document.getElementById("postAnnounce");
+          var postNumVal = (postNum.value = "postAnnounce");
+          console.log(postNumVal);
+          $("#postFormAnnounce").submit();
+        }
+      </script>
