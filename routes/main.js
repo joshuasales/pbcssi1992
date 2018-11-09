@@ -178,7 +178,7 @@ router.get('/faculty', function (req, res, next) {
   res.render('main/faculty');
 });
 router.get('/publication', function (req, res, next) {
-  News.find({
+  Literary.find({
       status: true
     })
     .sort({
