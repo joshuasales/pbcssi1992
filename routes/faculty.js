@@ -77,23 +77,18 @@ router.get(
 );
 
 router.post('/encode-grades', facultyAuthentication, function (req, res, next) {
-
-  User.findOne({
-    password: req.user.password,
-  }, function (err, user){
-    if (err) return next(err);
-
-    if(!user){
+var password = (req.body.password).toString();
+var pword = "123";
+    if(req.body.password == pword){
       req.flash('message','Incorrect Password!');
-      console.log("mali password" + req.user.password);
+      console.log("mali password" + req.body.password + req.body.password2);
       return res.redirect("back")
-    }else{
-
+    }
         var grades = [];
-        console.log("mali password" + req.user.password);
-  console.log('ohh: ' + user.password);
+        console.log("tama password" + (req.body.password).toString() + pword);
+  console.log('ohh: ');
   var toggle = req.body.toggle;
-  var password = (req.body.password).toString();
+  
   var userPass = req.user.password;
   // if(req.body.password !== "123"){
   //   req.flash("message", "You entered a wrong password");
@@ -373,8 +368,7 @@ router.post('/encode-grades', facultyAuthentication, function (req, res, next) {
     res.redirect('/viewencoded-grades');
   }
 
-    }
-  },);
+    
 
 });
 
