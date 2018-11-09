@@ -113,36 +113,36 @@
                                                         <td>
                                                             <% if((subject.first == true || subject.first == "true")&&(subject.postFirstGrading == true || subject.postFirstGrading == "true")){ %>
                                                                 <input id="first" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"
-                                                                    type="text" min="0" max="100" style="width:60px;" class="form-control">
+                                                                    type="number" min="0" max="100" style="width:60px;" class="form-control">
                                                                 <%} else{ %>
                                                                     <input disabled id="first" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"
-                                                                        type="text" min="0" max="100" style="width:60px;" class="form-control">
+                                                                        type="number" min="0" max="100" style="width:60px;" class="form-control">
                                                                     <% } %>
                                                         </td>
                                                         <td>
                                                             <% if((subject.second == true || subject.second == "true")&&(subject.postSecondGrading == true || subject.postSecondGrading == "true")){ %>
-                                                                <input id="second" value="<%= subject.secondGrading %>" name="secondGrading[]" type="text" min="0" max="100" maxlength="2"
+                                                                <input id="second" value="<%= subject.secondGrading %>" name="secondGrading[]" type="number" min="0" max="100" maxlength="2"
                                                                     oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                 <% }else{ %>
-                                                                    <input disabled id="second" value="<%= subject.secondGrading %>" name="secondGrading[]" type="text" min="0" max="100" maxlength="2"
+                                                                    <input disabled id="second" value="<%= subject.secondGrading %>" name="secondGrading[]" type="number" min="0" max="100" maxlength="2"
                                                                         oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                     <% } %>
                                                         </td>
                                                         <td>
                                                             <% if((subject.third == true || subject.third == "true")&&(subject.postThirdGrading == true || subject.postThirdGrading == "true")){ %>
-                                                                <input id="third" value="<%= subject.thirdGrading %>" name="thirdGrading[]" type="text" min="0" max="100" maxlength="2" oninput="numberOnly(this.id);"
+                                                                <input id="third" value="<%= subject.thirdGrading %>" name="thirdGrading[]" type="number" min="0" max="100" maxlength="2" oninput="numberOnly(this.id);"
                                                                     style="width:60px" class="form-control">
                                                                 <% }else{ %>
-                                                                    <input disabled id="third" value="<%= subject.thirdGrading %>" name="thirdGrading[]" type="text" min="0" max="100" maxlength="2"
+                                                                    <input disabled id="third" value="<%= subject.thirdGrading %>" name="thirdGrading[]" type="number" min="0" max="100" maxlength="2"
                                                                         oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                     <% } %>
                                                         </td>
                                                         <td>
                                                             <% if((subject.fourth == true || subject.fourth == "true")&&(subject.postFourthGrading == true || subject.postFourthGrading == "true")){ %>
-                                                                <input id="fourth" value="<%= subject.fourthGrading %>" name="fourthGrading[]" type="text" min="0" max="100" maxlength="2"
+                                                                <input id="fourth" value="<%= subject.fourthGrading %>" name="fourthGrading[]" type="number" min="0" max="100" maxlength="2"
                                                                     oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                 <% }else {%>
-                                                                    <input disabled id="fourth" value="<%= subject.fourthGrading %>" name="fourthGrading[]" type="text" min="0" max="100" maxlength="2"
+                                                                    <input disabled id="fourth" value="<%= subject.fourthGrading %>" name="fourthGrading[]" type="number" min="0" max="100" maxlength="2"
                                                                         oninput="numberOnly(this.id);" style="width:60px" class="form-control">
                                                                     <% } %>
                                                         </td>
@@ -186,19 +186,19 @@
                                                                     <td>
 
                                                                         <% if((subject.firstSemester == true || subject.firstSemester == "true")&&(subject.postFirstSem == true || subject.postFirstSem == "true")){ %>
-                                                                            <input id="firstSem" value="<%= subject.firstSem %>" name="firstSem[]" type="text" min="0" max="100" maxlength="2" style="width:60px"
+                                                                            <input id="firstSem" value="<%= subject.firstSem %>" name="firstSem[]" type="number" min="0" max="100" maxlength="2" style="width:60px"
                                                                                 class="form-control">
                                                                             <% }else{ %>
-                                                                                <input disabled id="firstSem" value="<%= subject.firstSem %>" name="firstSem[]" type="text" min="0" max="100" maxlength="2"
+                                                                                <input disabled id="firstSem" value="<%= subject.firstSem %>" name="firstSem[]" type="number" min="0" max="100" maxlength="2"
                                                                                     style="width:60px" class="form-control">
                                                                                 <% } %>
                                                                     </td>
                                                                     <td>
                                                                         <% if((subject.secondSemester == true || subject.secondSemester == "true")&&(subject.postSecondSem == true || subject.postSecondSem == "true")){ %>
-                                                                            <input id="secondSem" value="<%= subject.secondSem %>" name="secondSem[]" type="text" min="0" max="100" maxlength="2" style="width:60px"
+                                                                            <input id="secondSem" value="<%= subject.secondSem %>" name="secondSem[]" type="number" min="0" max="100" maxlength="2" style="width:60px"
                                                                                 class="form-control">
                                                                             <% }else{ %>
-                                                                                <input disabled id="secondSem" value="<%= subject.secondSem %>" name="secondSem[]" type="text" min="0" max="100" maxlength="2"
+                                                                                <input disabled id="secondSem" value="<%= subject.secondSem %>" name="secondSem[]" type="number" min="0" max="100" maxlength="2"
                                                                                     style="width:60px" class="form-control">
                                                                                 <% } %>
                                                                     </td>
@@ -218,7 +218,9 @@
                                                                                             <div>
                                                             
                                                                                                 <label style="color:black; font-weight:bold;">Password:</label>
-                                                                                                <input class="form-control" type="password" name="password" placeholder="PASSWORD">
+                                                                                                <input class="form-control" 
+                                                                                                id="password"
+                                                                                                type="password" name="password" placeholder="PASSWORD">
                                                                                                 <br>
 
                                                                                                 <center>
@@ -253,7 +255,7 @@
                                         <div>
                                             <br>
                                             <label style="color:black; font-weight:bold;">Password:</label>
-                                            <input class="form-control" type="password" name="password" placeholder="PASSWORD">
+                                            <input class="form-control" type="password" name="password" id="password" placeholder="PASSWORD">
                                             <br>
 
                                             <center>
