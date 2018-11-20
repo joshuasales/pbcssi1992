@@ -23,7 +23,7 @@
             </div>  
             <div class="form-group" style="padding: 5px;">
               <label for="title" style=" color: #ffffff;">Subject:</label>
-              <input placeholder="Write the subject...." type="text" name="subject" class="form-control" id="title" required="">
+              <input placeholder="Write the subject...." type="text" name="subject" class="form-control" id="subject" required="">
             </div>
             <div class="form-group" style="padding: 5px;">
               <label for="content" style=" color: #ffffff;">Content:</label>
@@ -44,7 +44,7 @@
 
       <script type="text/javascript">
       function discard() {
-      document.getElementById("title").value = "";
+      document.getElementById("subject").value = "";
       document.getElementById("email").value = "";
       tinyMCE.activeEditor.setContent("");
       }
