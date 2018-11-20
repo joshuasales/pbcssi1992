@@ -4522,7 +4522,7 @@ router.delete('/deletemessage/:id', adminAuthentication, function (req, res, nex
 });
 
 router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res, next) {
-  console.log(req.body.email);
+  console.log(req.messages.email);
             var smtpTransport = nodemailer.createTransport(
               transporter({
                 service: 'Gmail',
@@ -4533,7 +4533,7 @@ router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res,
               }),
             );
             var mailOptions = {
-              to: req.body.email,
+              to: req.messages.email,
               from: 'pbcssinc@gmail.com',
               subject: 'Re: '+ req.body.subject,
               text: req.body.content
