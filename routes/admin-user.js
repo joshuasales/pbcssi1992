@@ -4422,7 +4422,7 @@ router.post('/managepubs/:id/edit', adminAuthentication, function (req, res, nex
     news.comments = req.body.comments;
     news.save(function (err, news) {
       if (err) return next(err);
-      req.flash("message", "You successfully added a publication!");
+      req.flash("message", "You successfully revised a publication!");
       res.redirect('/managepubs');
     });
   });
@@ -4521,8 +4521,8 @@ router.delete('/deletemessage/:id', adminAuthentication, function (req, res, nex
   });
 });
 
-router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res, next) {
-  console.log(req.messages.email);
+router.post('/replymessage/:id/reply', adminAuthentication, function (req, res, next) {
+  console.log(req.body.email);
             var smtpTransport = nodemailer.createTransport(
               transporter({
                 service: 'Gmail',
@@ -4533,11 +4533,10 @@ router.post('/replymessage/:_id/reply', adminAuthentication, function (req, res,
               }),
             );
             var mailOptions = {
-              to: req.messages.email,
+              to: req.body.email,
               from: 'pbcssinc@gmail.com',
-              subject: 'Re: '+ req.body.subject,
-              text: req.body.content
-                
+              subject: req.body.subject,
+              text: req.body.content,
             };
             smtpTransport.sendMail(mailOptions, function (err) {
               if (err) return next(err);
