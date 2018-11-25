@@ -126,7 +126,7 @@ router.post('/users', adminAuthentication, function (req, res, next) {
         } else {
           console.log("pasok");
           user.save(function (err, user) {
-            console.log("lol")
+            console.log("lol");
             var smtpTransport = nodemailer.createTransport(
               transporter({
                 service: 'Gmail',
@@ -136,6 +136,7 @@ router.post('/users', adminAuthentication, function (req, res, next) {
                 },
               }),
             );
+
             var mailOptions = {
               to: req.body.email,
               from: 'pbcssinc@gmail.com',
