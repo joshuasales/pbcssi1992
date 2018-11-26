@@ -233,7 +233,15 @@ if(req.body.neworold === 'new'){
       req.flash('message', 'Account with that details already exist');
       return res.redirect('back');
     } else {
-      if (
+        User.findOne({
+        email: req.body.email
+        }, function (err, existingUser2) {
+        if (existingUser2) {
+        console.log("new");
+        req.flash('message', 'Account with that email address already exist');
+        return res.redirect('back');
+        } else {
+          if (
         // req.body.stuno &&
         req.body.firstName &&
         req.body.middleName &&
@@ -275,6 +283,10 @@ if(req.body.neworold === 'new'){
         req.flash('errors', 'Please enter all the required information.');
         return res.redirect('/register');
       }
+
+        }
+
+        });
     }
   });
 } else if (req.body.neworold === 'old'){
@@ -319,29 +331,40 @@ if(req.body.neworold === 'new'){
                 req.flash('message', 'Account with that details already exist');
                 return res.redirect('back');
               } else{
+                User.findOne({
+                email: req.body.email
+                }, function (err, existingUser2) {
+                if (existingUser2) {
+                console.log("new");
+                req.flash('message', 'Account with that email address already exist');
+                return res.redirect('back');
+                } else {
                 pending.studentNo = Number(req.body.stuno);
-            pending.firstName = req.body.firstName;
-            pending.middleName = req.body.middleName;
-            pending.lastName = req.body.lastName;
-            pending.age = req.body.age;
-            pending.address = req.body.address;
-            pending.gender = req.body.gender;
-            pending.email = req.body.email;
-      
-            pending.birthdate = new Date(
-              req.body.year + '-' + req.body.month + '-' + req.body.day,
-            );
-            pending.contact = req.body.contact;
-      
-            pending.save(function (err, pendingUser) {
-              console.log(req.body.gender);
-              if (err) return next(err);
-              req.flash(
-                'success',
-                'Your account is in proccess now by the administrator',
-              );
-              return res.redirect('/register');
-            });    
+                pending.firstName = req.body.firstName;
+                pending.middleName = req.body.middleName;
+                pending.lastName = req.body.lastName;
+                pending.age = req.body.age;
+                pending.address = req.body.address;
+                pending.gender = req.body.gender;
+                pending.email = req.body.email;
+          
+                pending.birthdate = new Date(
+                  req.body.year + '-' + req.body.month + '-' + req.body.day,
+                );
+                pending.contact = req.body.contact;
+          
+                pending.save(function (err, pendingUser) {
+                  console.log(req.body.gender);
+                  if (err) return next(err);
+                  req.flash(
+                    'success',
+                    'Your account is in proccess now by the administrator',
+                  );
+                  return res.redirect('/register');
+                });
+                }
+                });
+
               }
             });
       
