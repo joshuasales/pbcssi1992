@@ -298,12 +298,17 @@ if(req.body.neworold === 'new'){
     .findOne({ 
       studentNo: studentNo, 
       firstName: firstName, 
-      lastName: lastName ,
+      lastName: lastName,
     }, function(err, data){
       if(err) return next(err);
       console.log('data', data);
       console.log('req.body', req.body);
-      if(data){
+      if(!data){
+          console.log('wala');
+          req.flash('message', 'Account with that details does not exist');
+          return res.redirect('/register');
+      }
+      else{
         if(data.studentNo === studentNo && data.firstName === firstName && data.lastName === lastName){
           
           if (
@@ -323,23 +328,37 @@ if(req.body.neworold === 'new'){
 
             Pending.findOne({
             email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
             }, function (err, existingUser) {
               if (existingUser) {
                 console.log("new");
-                req.flash('message', 'Account with that details already exist');
+                req.flash('message', 'Pending account with that email address already exist');
                 return res.redirect('back');
               } else{
-                User.findOne({
-                email: req.body.email
+                Pending.findOne({
+                  studentNo: req.body.stuno
                 }, function (err, existingUser2) {
                 if (existingUser2) {
+                  console.log("new");
+                  req.flash('message', 'Pending account with that student number already exist');
+                  return res.redirect('back');
+                } else {
+                User.findOne({
+                email: req.body.email
+                }, function (err, existingUser3) {
+                if (existingUser3) {
                 console.log("new");
                 req.flash('message', 'Account with that email address already exist');
                 return res.redirect('back');
                 } else {
-                pending.studentNo = Number(req.body.stuno);
+                User.findOne({
+                studentNo: req.body.stuno
+                }, function (err, existingUser4) {
+                if (existingUser4) {
+                console.log("new");
+                req.flash('message', 'Account with that student number already exist');
+                return res.redirect('back');
+                } else {
+                  pending.studentNo = Number(req.body.stuno);
                 pending.firstName = req.body.firstName;
                 pending.middleName = req.body.middleName;
                 pending.lastName = req.body.lastName;
@@ -364,7 +383,11 @@ if(req.body.neworold === 'new'){
                 });
                 }
                 });
+                }
+                });
 
+                }
+              });
               }
             });
       
@@ -376,12 +399,9 @@ if(req.body.neworold === 'new'){
         } else {
           req.flash('errors', 'Account with that details does not exist');
           return res.redirect('/register');
-        } 
-      }else {
-        req.flash('errors', 'Account with that details does not exist');
-        return res.redirect('/register');
-      }
-    });
+        }
+      } 
+      });
 
 }
 
