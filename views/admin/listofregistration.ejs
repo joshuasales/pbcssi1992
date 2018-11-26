@@ -1,0 +1,58 @@
+
+    <% layout("layout") -%>
+    <div id="particles-js"></div>
+      <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;">
+        <div class="col-lg-12">
+          <% include ../partials/adminpanel %>
+        </div>
+      </div>
+      <div class="container">
+      <div class="col-sm-6">
+        <div class="container">
+
+          <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy" style="padding: 0px; margin-top: 80px; margin-bottom: 5%; min-height:500px;">
+
+            <div class="panel-heading" style="color: #ffffff;">
+              Registration List
+
+            </div>
+            <br>
+            <div class="table-responsive">
+              <div style="overflow-y: scroll; height:450px; margin-top: 2%;">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="color: #ffffff; background-color: #020531;">Name</th>
+                      <th style="color: #ffffff; background-color: #020531;">Year Level</th>
+                      <th style="color: #ffffff; background-color: #020531;">Section</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% allUsers.forEach(function(user){ %>
+
+                      <tr>
+                        <td>
+                          <%=user.profile.lastName %>,
+                            <%= user.profile.firstName %>
+                              <%= user.profile.middleName %>
+                        </td>
+                        <td>
+                          <%= user.yrLvl %>
+                        </td>
+                        <td>
+                          <%= user.section%>
+
+                        </td>
+                        
+                      </tr>
+                      <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>

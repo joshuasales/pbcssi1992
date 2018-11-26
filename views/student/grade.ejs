@@ -63,49 +63,47 @@
                     <% curriculum.subjects.forEach(function(subject){ %>
 
                       <tr>
-                        <td style="text-transform: uppercase; font-weight: bold">
+                        <td style="text-transform: uppercase; font-weight: bold;">
                           <%= subject.subject %>
                         </td>
                         <% if(subject.firstGrading == 0){ %>
                           <td>&nbsp</td>
                           <% } else {%>
-                            <% if(subject.postFirstGrading == true){ %>
-                              <td>
+                              <td style=" padding-left: 5%">
                                 <%= subject.firstGrading %>
                               </td>
                               <% } %>
-                                <% }; %>
+                                
                                   <% if(subject.secondGrading == 0){ %>
                                     <td>&nbsp</td>
                                     <% } else {%>
-                                      <% if(subject.postSecondGrading == true){ %>
-                                        <td>
+                                        <td  style=" padding-left: 5%">
                                           <%= subject.secondGrading %>
                                         </td>
                                         <% } %>
-                                          <% }; %>
+                                          
                                             <% if(subject.thirdGrading == 0){ %>
                                               <td>&nbsp</td>
                                               <% } else {%>
-                                                <% if(subject.postThirdGrading == true){ %>
-                                                  <td>
+                                                
+                                                  <td  style=" padding-left: 5%">
                                                     <%= subject.thirdGrading %>
                                                   </td>
                                                   <% } %>
-                                                    <% }; %>
+                                                    
                                                       <% if(subject.fourthGrading == 0){ %>
                                                         <td>&nbsp</td>
                                                         <% } else {%>
-                                                          <% if(subject.postFourthGrading == true){ %>
-                                                            <td>
+                                                
+                                                            <td style=" padding-left: 5%">
                                                               <%= subject.fourthGrading %>
                                                             </td>
                                                             <% } %>
-                                                              <% }; %>
+                                                              
                                                                 <% if(subject.fourthGrading == 0){ %>
                                                                   <td>&nbsp</td>
                                                                   <% } else {%>
-                                                                    <td>
+                                                                    <td style=" padding-left:5%">
                                                                       <%= (parseFloat(subject.firstGrading) + parseFloat(subject.secondGrading) + parseFloat(subject.thirdGrading) + parseFloat(subject.fourthGrading)) /4  %>
                                                                     </td>
                                                                     <% }; %>
@@ -130,20 +128,20 @@
                               <% if(subject.firstSem === 0){ %>
                                 <td></td>
                                 <% } else {%>
-                                  <% if(subject.postFirstSem == true){ %>
-                                    <td>
+                                  
+                                    <td style=" padding-left: 5%">
                                       <%= subject.firstSem %>
                                     </td>
-                                    <% } %>
+                                    
                                       <% }; %>
                                         <% if(subject.secondSem === 0){ %>
                                           <td></td>
                                           <% } else {%>
-                                            <% if(subject.postSecondSem == true){ %>
-                                              <td>
+                                            
+                                              <td style=" padding-left: 5%">
                                                 <%= subject.secondSem %>
                                               </td>
-                                              <% } %>
+                                              
                                                 <% }; %>
                                                   <tr>
                                                     <% }); %>

@@ -29,7 +29,7 @@
                             <div style="float: right;">
                                 <%if(yrLvl === "grade11" || yrLvl === "grade12"){ %>
                                     <% if (handle[0].firstSemester == true || handle[0].firstSemester == "true") { %>
-                                        First Semenster
+                                        First Semester
                                         <% } else if (handle[0].secondSemester == true || handle[0].secondSemester == "true") { %>
                                             Second Semester
 
@@ -219,8 +219,8 @@
                                                             
                                                                                                 <label style="color:black; font-weight:bold;">Password:</label>
                                                                                                 <input class="form-control" 
-                                                                                                id="password"
-                                                                                                type="password" name="password" placeholder="PASSWORD">
+                                                                                                id="cpassword"
+                                                                                                type="password" name="cpassword" placeholder="PASSWORD">
                                                                                                 <br>
 
                                                                                                 <center>
@@ -308,5 +308,8 @@
                     var regex = /[^0-9]/gi;
                     // This removes any other character but numbers as entered by user
                     element.value = element.value.replace(regex, "");
+                    if (element.value.length > element.maxLength) {
+                    element.value = element.value.slice(0, element.maxLength);
+                    }
                 }
             </script>
