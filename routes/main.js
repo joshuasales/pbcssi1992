@@ -182,7 +182,7 @@ router.get('/publication', function (req, res, next) {
       status: true
     })
     .sort({
-      litNumber: -1
+      publishDate: -1
     })
     .exec(function (err1, literaries) {
           if (err1) return next(err1);
