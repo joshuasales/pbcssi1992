@@ -402,8 +402,8 @@ router.get('/manage', adminAuthentication, function (req, res, next) {
   if (req.query.sort) {
     console.log("pasok");
     Pending.find({}).sort({
-      lastName: -1,
-      firstName: -1
+      lastName: 1,
+      firstName: 1
     }).exec(function (err, allPending) {
       if (err) return next(err);
       res.render('admin/manage-users', {
@@ -411,7 +411,10 @@ router.get('/manage', adminAuthentication, function (req, res, next) {
       });
     });
   } else {
-    Pending.find({}, function (err, allPending) {
+    Pending.find({}).sort({
+      lastName: -1,
+      firstName: -1
+    }).exec(function (err, allPending) {
       if (err) return next(err);
       res.render('admin/manage-users', {
         allPending: allPending
@@ -672,7 +675,7 @@ router.get('/managenewsandannouncements', adminAuthentication, function (req, re
     News.find({
       archive: false
     }).sort({
-      postNumber: 1
+      publishDate: -1
     }).exec(function (err, allNews) {
       if (err) return next(err);
       res.render('admin/managenews', {
@@ -4262,7 +4265,7 @@ router.post("/manage-faculty/:id", adminAuthentication, function (req, res, next
       if (err) return next(err);
 
       if (teacher) {
-        req.flash("message", "there is already a faculty assigned to this subject");
+        req.flash("message", "There is already a faculty assigned to this subject");
         return res.redirect("back");
       } else {
 
@@ -4336,7 +4339,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       status: false,
       archive: false
     }).sort({
-      litNumber: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4349,7 +4352,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "photojournal"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4362,7 +4365,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "editorial"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4375,7 +4378,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "story"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4388,7 +4391,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "poem"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
