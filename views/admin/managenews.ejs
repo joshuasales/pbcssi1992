@@ -30,7 +30,7 @@
               Manage News and Announcement
 
             </div>
-            <label for="usr" style="margin-left: 5px; margin-top: 15px;">Category:</label>
+            <label for="usr" style="margin-left: 5px; margin-top: 15px;">Sort and Filter: </label>
             <div class="container">
               <div class="dropdown" style="margin-top:5px; margin-left: -10px;">
                 <button style="border-radius: 5px;" class="dropdown-toggle btn btn-default" type="button" data-toggle="dropdown">--Please Select--
@@ -38,7 +38,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li>
-                    <button class="btn btn-default form-control" onClick="postForm()">Post No.</button>
+                    <button class="btn btn-default form-control" onClick="postForm()">Date Posted</button>
                     <form id="postForm" action="/managenewsandannouncements" method="GET">
                       <input type="hidden" id="postNum" name="sort" />
                     </form>

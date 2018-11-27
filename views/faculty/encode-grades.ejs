@@ -112,7 +112,7 @@
                                                         </td>
                                                         <td>
                                                             <% if((subject.first == true || subject.first == "true")&&(subject.postFirstGrading == true || subject.postFirstGrading == "true")){ %>
-                                                                <input id="first" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"
+                                                                <input id="<%= subject.email %>" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"
                                                                     type="number" min="0" max="100" style="width:60px;" class="form-control">
                                                                 <%} else{ %>
                                                                     <input disabled id="first" value="<%= subject.firstGrading %>" maxlength="2" oninput="numberOnly(this.id);" size="2" name="firstGrading[]"

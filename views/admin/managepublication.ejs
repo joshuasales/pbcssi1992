@@ -34,7 +34,7 @@ animation-iteration-count: 4;>
               Manage Publication
 
             </div>
-            <label for="usr" style="margin-left: 5px; margin-top: 15px;">Category:</label>
+            <label for="usr" style="margin-left: 5px; margin-top: 15px;">Sort and Filter:</label>
             <div class="container">
               <div class="dropdown" style="margin-top:5px; margin-left: -10px;">
                 <button style="border-radius: 5px;" class="dropdown-toggle" type="button" data-toggle="dropdown">--Please Select--
@@ -42,7 +42,7 @@ animation-iteration-count: 4;>
                 </button>
                 <ul class="dropdown-menu">
                   <li>
-                    <button class="btn btn-default form-control" onClick="postForm()">Post No.</button>
+                    <button class="btn btn-default form-control" onClick="postForm()">Submitted Date</button>
                     <form id="postForm" action="/managepubs" method="GET">
                       <input type="hidden" id="postNum" name="sort" />
                     </form>
