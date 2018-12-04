@@ -1,0 +1,73 @@
+<% if(message && message.length >0){ %>
+    <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+    top: 15%;
+    right: 35%;
+    height: 100px;
+    width: 400px;
+    z-index: 99;
+    animation-iteration-count: 4;">
+        <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+
+        </button>
+        <%= message %>
+    </div>
+    <% } %>
+        <% layout("layout") -%>
+        <div id="particles-js"></div>
+            <div class="col-sm-3" style=" padding: 10px; margin-top: 50px;" overflow-x: hidden;>
+                <div class="col-lg-12">
+                    <% include ../partials/facultypanel %>
+                </div>
+            </div>
+            <div class="container">
+            <div class="col-sm-6">
+                <div class="container">
+                    <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy" style="padding: 0px; margin-top: 80px; height:460px;">
+
+                        <div class="panel-heading" style="color: #ffffff;">Your Logs</div>
+                        <br>
+                        <div class="table-responsive">
+                            <div style="overflow-y: scroll; height:330px; ">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="color: #ffffff; background-color: #020531;">Log Number</th>
+                                            <th style="color: #ffffff; background-color: #020531;">Name</th>
+                                            <th style="color: #ffffff; background-color: #020531;">Email</th>
+                                            <th style="color: #ffffff; background-color: #020531;">Status</th>
+                                            <th style="color: #ffffff; background-color: #020531;">Date / Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <% logs.forEach(function(log){ %>
+                                            <td>
+                                                <%= log.logNumber %>
+                                            </td>
+                                            <td>
+                                                <%= log.name %>
+                                            </td>
+                                            <td>
+                                                <%= log.email %>
+                                            </td>
+                                            <td>
+                                                <%= log.logtype %>
+                                            </td>
+                                            <td>
+                                                <%= moment(log.logDate).format("LLL")%>
+                                            </td>
+                                            
+                                    </tr>
+                                    <% }); %>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            </div>
+            </div>
+            </div>

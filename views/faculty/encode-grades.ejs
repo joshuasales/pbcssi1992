@@ -26,6 +26,9 @@
                     <div class="panel panel-info  col-sm-9 page-content" id="myScrollspy page-content" style="padding: 0px; margin-top: 80px; height:460px;">
 
                         <div class="panel-heading" style="color: #ffffff;">Encode Student Grades
+                        <span style="float:right;">
+                        S.Y. <%= (new Date()).getFullYear()+ "-" + ((new Date()).getFullYear() + 1) %>
+                        </span>
                             <div style="float: right;">
                                 <%if(yrLvl === "grade11" || yrLvl === "grade12"){ %>
                                     <% if (handle[0].firstSemester == true || handle[0].firstSemester == "true") { %>

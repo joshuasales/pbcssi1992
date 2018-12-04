@@ -1,3 +1,18 @@
+<% if(message.length >0){ %>
+    <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
+  top: 15%;
+  right: 35%;
+  height: 100px;
+  width: 400px;
+  z-index: 99;
+    animation-iteration-count: 4;">
+        <button type="button" id="btn" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+
+        </button>
+        <%= message %>
+    </div>
+    <% } %>
     <% layout("layout") -%>
       
 <div class="register">
@@ -38,11 +53,8 @@
 
                     <br>
                     <form id="register-data" action="/register" method="POST" style="width:80%;">
-                    <select onchange="student()" name="neworold" id="neworold" class="tbox">
-                      <option value="new" style="color: #000000">New Student</option>
-                      <option value="old" style="color: #000000">Old Student</option>
-                    </select>
-                      <div class="form-group" id="stno" style="display: none">
+
+                      <div class="form-group" id="stno">
                         <label for="pwd">Student no:</label>
                         <input type="number" class="form-control tbox" name="stuno" id="stuno">
                       </div>
@@ -148,13 +160,7 @@
 
         
         <script>
-          function student() {
-            if (document.getElementById("neworold").value === "old") {
-              document.getElementById("stno").style.display = ""
-            } else {
-              document.getElementById("stno").style.display = "none"
-            }
-          }
+
           for (var i = (new Date).getFullYear(); i >= 1905; i--) {
             $("#year").append('<option value="' + i + '">' + i + '</option>');
           }
