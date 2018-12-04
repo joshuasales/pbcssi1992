@@ -5,7 +5,7 @@ var User = require('../models/user');
 var Pending = require('../models/pending');
 var News = require('../models/newsAndAnnouncement');
 var Curriculum = require('../models/curriculum');
-
+var Logs = require('../models/log');
 var Literary = require('../models/literary');
 var async = require('async');
 var passport = require('passport');
@@ -137,6 +137,24 @@ router.get('/viewgrade', function(req, res, next) {
         });
     });
   }
+});
+
+router.get('/viewlogsstud', function (
+  req,
+  res,
+  next,
+) {
+    Logs.find({
+      email: req.user.email,
+      name: req.user.profile.name,
+      usertype: 'student'
+    }).sort({
+      logNumber: -1
+    }).exec(function (err,logs){
+        res.render ('student/viewlogs',{
+            logs: logs
+        });
+    });
 });
 
 module.exports = router;

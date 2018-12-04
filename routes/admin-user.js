@@ -13,6 +13,7 @@ var Subject = require('../models/subject');
 var Handle = require('../models/facultyHandle');
 var Vmos = require('../models/vmos');
 var Messages = require('../models/messages');
+var Logs = require('../models/log');
 var async = require('async');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
@@ -126,7 +127,7 @@ router.post('/users', adminAuthentication, function (req, res, next) {
         } else {
           console.log("pasok");
           user.save(function (err, user) {
-            console.log("lol")
+            console.log("lol");
             var smtpTransport = nodemailer.createTransport(
               transporter({
                 service: 'Gmail',
@@ -136,6 +137,7 @@ router.post('/users', adminAuthentication, function (req, res, next) {
                 },
               }),
             );
+
             var mailOptions = {
               to: req.body.email,
               from: 'pbcssinc@gmail.com',
@@ -401,8 +403,8 @@ router.get('/manage', adminAuthentication, function (req, res, next) {
   if (req.query.sort) {
     console.log("pasok");
     Pending.find({}).sort({
-      lastName: -1,
-      firstName: -1
+      lastName: 1,
+      firstName: 1
     }).exec(function (err, allPending) {
       if (err) return next(err);
       res.render('admin/manage-users', {
@@ -410,7 +412,10 @@ router.get('/manage', adminAuthentication, function (req, res, next) {
       });
     });
   } else {
-    Pending.find({}, function (err, allPending) {
+    Pending.find({}).sort({
+      lastName: -1,
+      firstName: -1
+    }).exec(function (err, allPending) {
       if (err) return next(err);
       res.render('admin/manage-users', {
         allPending: allPending
@@ -475,22 +480,7 @@ router.post('/manage/:id', adminAuthentication, function (req, res, next) {
     user.gender = req.body.gender;
     user.address = req.body.address;
     user.contact = '+63' + parseInt(req.body.contact);
-    // if(user.user === "admin"){
-    //     User.count({user: user.user}).exec(function(err, count){
-    //     var number = (new Date()).getFullYear() +  "000000";
-    //     user.idNumber = parseInt(number) + count;
-    // });
-    // } else if(user.user === "faculty"){
-    //     User.count({user: user.user}).exec(function(err, count){
-    //         var number = (new Date()).getFullYear() +  "000000";
-    //         user.idNumber = parseInt(number) + count;
-    //     });
-    // }else{
-    //     User.count({user: user.user}).exec(function(err, count){
-    //         var number = (new Date()).getFullYear() +  "000000";
-    //         user.idNumber = parseInt(number) + count;
-    //     });
-    // }
+    
     user.birthdate = new Date(
       req.body.year + '-' + req.body.month + '-' + req.body.day,
     );
@@ -520,6 +510,33 @@ router.post('/manage/:id', adminAuthentication, function (req, res, next) {
           Pending.findByIdAndRemove(req.params.id, function (err, pendingUser) {
             if (err) return next(err);
             console.log(pendingUser);
+
+            var smtpTransport = nodemailer.createTransport(
+              transporter({
+                service: 'Gmail',
+                auth: {
+                  user: 'pbcssinc@gmail.com',
+                  pass: 'Pbcssinc!123',
+                },
+              }),
+            );
+
+            var mailOptions = {
+              to: req.body.email,
+              from: 'pbcssinc@gmail.com',
+              subject: 'New Account Created',
+              text: 'Username:' +
+                '\n\n' +
+                user.email +
+                '\n\n' +
+                'Password:' +
+                req.body.password
+            };
+            smtpTransport.sendMail(mailOptions, function (err) {
+              if (err) return next(err);
+              console.log('mail sent');
+            });
+            if (err) return next(err);
             req.flash("message", "The account has been created successfully.");
             return res.redirect('/manage');
           });
@@ -659,7 +676,7 @@ router.get('/managenewsandannouncements', adminAuthentication, function (req, re
     News.find({
       archive: false
     }).sort({
-      postNumber: 1
+      publishDate: -1
     }).exec(function (err, allNews) {
       if (err) return next(err);
       res.render('admin/managenews', {
@@ -4249,7 +4266,7 @@ router.post("/manage-faculty/:id", adminAuthentication, function (req, res, next
       if (err) return next(err);
 
       if (teacher) {
-        req.flash("message", "there is already a faculty assigned to this subject");
+        req.flash("message", "There is already a faculty assigned to this subject");
         return res.redirect("back");
       } else {
 
@@ -4323,7 +4340,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       status: false,
       archive: false
     }).sort({
-      litNumber: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4336,7 +4353,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "photojournal"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4349,7 +4366,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "editorial"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4362,7 +4379,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "story"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4375,7 +4392,7 @@ router.get('/managepubs', adminAuthentication, function (req, res, next) {
       archive: false,
       category: "poem"
     }).sort({
-      publishDate: 1
+      publishDate: -1
     }).exec(function (err, literaries) {
       if (err) return next(err);
       res.render('admin/managepublication', {
@@ -4551,6 +4568,90 @@ router.post('/replymessage/:id/reply', adminAuthentication, function (req, res, 
 
             req.flash("message", "Message Sent");
             res.redirect('/inquiries');
+});
+
+router.get('/listregistration', adminAuthentication, function (req, res, next) {
+    User.find({
+    user: 'student'
+    }).sort({
+      lastName: 1,
+      firstName: 1
+    }).exec(function (err, allUsers) {
+      if (err) return next(err);
+      res.render('admin/listofregistration', {
+        allUsers: allUsers
+      });
+    });
+});
+
+router.get('/viewlogsadmin', adminAuthentication, function (
+  req,
+  res,
+  next,
+) {
+  if (req.query.PersonalLog) {
+    const regex = new RegExp(escapeRegex(req.query.PersonalLog), "gi");
+    console.log("pasok your");
+    Logs.find({
+      email: req.user.email,
+      name: req.user.profile.name
+    }).sort({
+      logDate: -1
+    }).exec(function (err,logs){
+        res.render ('admin/viewlogs',{
+            logs: logs
+        });
+    });
+
+  } else if (req.query.AdminLog){
+    const regex = new RegExp(escapeRegex(req.query.AdminLog), "gi");
+    console.log("pasok admin");
+    Logs.find({
+      usertype: 'admin'
+    }).sort({
+      logNumber: -1
+    }).exec(function (err,logs){
+        res.render ('admin/viewlogs',{
+            logs: logs
+        });
+    });
+  } else if (req.query.FacultyLog){
+    const regex = new RegExp(escapeRegex(req.query.FacultyLog), "gi");
+    console.log("pasok faculty");
+    Logs.find({
+      usertype: 'faculty'
+    }).sort({
+      logDate: -1
+    }).exec(function (err,logs){
+        res.render ('admin/viewlogs',{
+            logs: logs
+        });
+    });
+  } else if (req.query.StudentLog){
+    const regex = new RegExp(escapeRegex(req.query.StudentLog), "gi");
+    console.log("pasok student");
+    Logs.find({
+      usertype: 'student'
+    }).sort({
+      logDate: -1
+    }).exec(function (err,logs){
+        res.render ('admin/viewlogs',{
+            logs: logs
+        });
+    });
+  } else{
+    console.log("pasok student");
+    Logs.find({
+      
+    }).sort({
+      logDate: -1
+    }).exec(function (err,logs){
+        res.render ('admin/viewlogs',{
+            logs: logs
+        });
+    });
+  }
+
 });
 
 function escapeRegex(text) {

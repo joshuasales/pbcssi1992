@@ -9,6 +9,7 @@ var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 var transporter = require('nodemailer-smtp-transport');
 var Data = require('../models/data');
+var Logs = require('../models/log');
 
 router.get('/login', function (req, res) {
   News.findOne({
@@ -27,6 +28,8 @@ router.get('/login', function (req, res) {
         .exec(function (err, announcements) {
           if (err) return next(err1);
           if (err) return next(err);
+
+
           res.render('main/homeplayground', {
             news: news,
             announcements: announcements,
@@ -39,11 +42,33 @@ router.get('/login', function (req, res) {
 router.post(
   '/login',
   passport.authenticate('local-login', {
-    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
   }),
-  function (req, res) {},
+  function (req, res) {
+    Logs.find({email: req.user.email}).count().exec(function(err,counter){
+       var log = new Logs();
+        log.email = req.user.email;
+        log.logNumber = counter+1;
+        log.name = req.user.profile.name;
+        log.logtype = "Logged In";
+        log.usertype = req.user.user;
+        log.save(function(err, literary){
+        if (err) return next(err);
+        console.log(log);
+
+          User.findById(req.user._id, function (err, user) {
+
+    user.save(function (err, result) {
+      if (err) return next(err);
+      console.log(result);
+
+    });
+  });
+  res.redirect('/');
+  });
+  });
+  },
 );
 
 router.get('/profile', function (req, res) {
@@ -62,7 +87,7 @@ router.get('/profile', function (req, res) {
         .populate('history')
         .exec(function (err, user) {
           if (err) return next(err);
-          console.log(user);
+          console.log("eto ba?");
           callback(null, user);
         });
     },
@@ -161,15 +186,31 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-  User.findById(req.user._id, function (err, user) {
+  Logs.find({email: req.user.email}).count().exec(function(err,counter){
+       var log = new Logs();
+        log.email = req.user.email;
+        log.logNumber = counter+1;
+        log.name = req.user.profile.name;
+        log.logtype = "Logged Out";
+        log.usertype = req.user.user;
+        log.save(function(err, literary){
+        if (err) return next(err);
+        console.log(log);
+
+          User.findById(req.user._id, function (err, user) {
+
     user.save(function (err, result) {
       if (err) return next(err);
       console.log(result);
+
     });
   });
-
   req.logout();
   res.redirect('/');
+  });
+  });        
+     
+
 });
 
 router.get('/edit-profile', function (req, res, next) {
