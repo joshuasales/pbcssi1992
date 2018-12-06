@@ -14,8 +14,6 @@ var methodOverride = require('method-override');
 var path = require('path');
 var crypto = require('crypto');
 var multer = require('multer');
-var GridFsStorage = require('multer-gridfs-storage');
-var Grid = require('gridfs-stream');
 var secret = require('./config/secret');
 var User = require('./models/user');
 
