@@ -768,6 +768,7 @@ router.post('/managenewsandannouncements/:id/edit', adminAuthentication, functio
     news.content = req.body.content;
     news.save(function (err, news) {
       if (err) return next(err);
+      console.log(news);
       req.flash("message", "You have successfully edited an article!");
       res.redirect('/managenewsandannouncements');
     });
