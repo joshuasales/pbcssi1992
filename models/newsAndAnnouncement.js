@@ -5,9 +5,9 @@ var newsSchema = new mongoose.Schema({
     postNumber: Number,
     category: String,
     title: String,
-    content: String,
+    content:  {type: String, default: ' '},
     publishDate: {type: Date, default: Date.now()},
-    picture: {type: String, default: ""},
+    path:  {type: String, default: ''},
     archive: {type: Boolean, default: false}
 });
 
