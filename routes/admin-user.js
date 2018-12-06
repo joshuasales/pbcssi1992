@@ -17,6 +17,7 @@ var Logs = require('../models/log');
 var async = require('async');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
+var upload = require('./upload');
 
 router.use(expressSanitizer());
 
@@ -654,20 +655,44 @@ router.get('/postnewsandannouncements', adminAuthentication, function (req, res,
 });
 
 router.post('/postnewsandannouncements', adminAuthentication, function (req, res, next) {
-  if (req.body.category && req.body.title && req.body.content) {
-    var news = new News();
-    news.postNumber = req.body.postNumber;
-    news.category = req.body.category;
-    news.title = req.body.title;
-    news.content = req.sanitize(req.body.content);
-    news.save(function (err, news) {
-      if (err) return next(err);
-      console.log(news);
-      req.flash("message", "Added a new article.");
-      res.redirect('/postnewsandannouncements');
-    });
-  }
-  console.log(req.body);
+  
+     upload(req, res,(error) => {
+      if(error){
+         req.flash("message","Invalid file!");
+         res.redirect("back");
+      }else{
+        if(req.file == undefined){
+          
+          req.flash("message","File size is too large!");
+          res.redirect("back");
+
+        }else{
+             
+            /**
+             * Create new record in mongoDB
+             */
+            var fullPath = "files/"+req.file.filename;
+
+            var document = {
+              path:     fullPath,
+              postNumber: req.body.postNumber,
+              category: req.body.category,
+              title: req.body.title,
+              content: req.sanitize(req.body.content),
+            };
+  
+          var news = new News(document); 
+          news.save(function(error){
+            if(error){ 
+              throw error;
+            } 
+            req.flash("message", "Added a new article.");
+            res.redirect('/postnewsandannouncements');
+         });
+      }
+    }
+  });    
+  
 });
 
 router.get('/managenewsandannouncements', adminAuthentication, function (req, res, next) {
@@ -743,7 +768,7 @@ router.post('/managenewsandannouncements/:id/edit', adminAuthentication, functio
     news.content = req.body.content;
     news.save(function (err, news) {
       if (err) return next(err);
-      req.flash("message", "You successfully create a new " + req.body.category + ".");
+      req.flash("message", "You have successfully edited an article!");
       res.redirect('/managenewsandannouncements');
     });
   });
@@ -4553,7 +4578,7 @@ router.post('/replymessage/:id/reply', adminAuthentication, function (req, res, 
               to: req.body.email,
               from: 'pbcssinc@gmail.com',
               subject: req.body.subject,
-              text: req.body.content,
+              text: 'Greetings! Thank you for visiting our website. We, at PBC Sunbeam School Inc. are always committed to provide reliable service to our stakeholders. We accommodate your concerns and inquiries as quick as possible. Regarding your message, please read the preceding text below:\n\n'+req.body.content,
             };
             smtpTransport.sendMail(mailOptions, function (err) {
               if (err) return next(err);

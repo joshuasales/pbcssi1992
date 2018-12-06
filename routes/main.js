@@ -8,7 +8,7 @@ var Subject = require('../models/subject');
 var News = require('../models/newsAndAnnouncement');
 var Data = require('../models/data');
 var Messages = require('../models/messages');
-
+var upload = require('./upload');
 var Literary = require('../models/literary');
 
 router.use(expressSanitizer());
