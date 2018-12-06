@@ -46,7 +46,11 @@
             <h4 class="modal-title"><%= news.title %></h4>
             <label><%= moment(news.publishDate).format("LL") %></label>
           </div>
-          <div class="modal-body" style="overflow-y: scroll; height: 250px;">
+          <div class="modal-body" style="overflow-y: scroll; height: 400px;">
+              <% if(news.path) { %>
+              <center><img src = "<%= news.path %>" alt="image" width="60%" height="auto" class="img img-responsive"/></center>
+              <% } %>
+                <br>
               <label> <%- news.content %>
               </label>
           </div>

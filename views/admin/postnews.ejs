@@ -1,3 +1,22 @@
+<style>
+input[type='submit'] {
+    border: none;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+input[type='file']::-webkit-file-upload-button {
+    border: none;
+    border-radius: 5px;
+    background-color: #020531 !important;
+    color: #ffffff;
+    padding: 10px;
+    margin-right: 2%; 
+}
+
+}
+</style>
+
 <% if(message && message.length >0){ %>
     <div class="alert alert-warning alert-dismissible animated bounce" style= "position: absolute;
 	top: 15%;
@@ -22,13 +41,15 @@
   </div>
   <div class="container">
   <div class="col-sm-6">
-    <div class="container">
+    <div class="container page-content">
       <div class="panel panel-info col-sm-9" id="myScrollspy" style="padding: 0px; margin-top: 80px; height:auto;">
         <div class="panel-heading" style="color: #ffffff;">
 
           Post News and Announcement
         </div>
-        <form action="/postnewsandannouncements" method="POST" style="padding: 2%;">
+        <form action="/postnewsandannouncements" method="POST" enctype="multipart/form-data" style="padding: 2%;">
+          
+
           <div class="form-group" style="padding: 5px;">
             <label for="postNumber" style="color:black; ">Post ID:</label>
             <select name="postNumber" class="btn btn-info" style="border-radius:8px;" id="postNumber">
@@ -45,8 +66,13 @@
           </div>
           <div class="form-group" style="padding: 5px;">
             <label for="title" style="color:black;">Title:</label>
-            <input placeholder="Write the title...." type="text" name="title" class="form-control" id="title">
+            <input placeholder="Write the title...." type="text" name="title" class="form-control" id="title" required="">
           </div>
+
+          <div class="form-group" style="padding: 5px; color: #000000;">
+          <input type="file" name="file" id="file">
+          </div>
+
           <div class="form-group" style="padding: 5px;">
             <label for="content" style="color:black;">Content:</label>
             <textarea style="width:100%; height: 400px;" placeholder="Write a content..." name="content" class="form-control" id="content"></textarea>
@@ -58,6 +84,8 @@
             <button onClick="discard()" type="button" style="width: 100px; margin-right:5px;" class="btn btn-danger">
               Discard</button>
           </div>
+
+
         </form>
       </div>
     </div>

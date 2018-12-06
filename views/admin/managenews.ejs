@@ -1,3 +1,22 @@
+<style>
+input[type='submit'] {
+    border: none;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+input[type='file']::-webkit-file-upload-button {
+    border: none;
+    border-radius: 5px;
+    background-color: #020531 !important;
+    color: #ffffff;
+    padding: 10px;
+    margin-right: 2%; 
+}
+
+}
+</style>
+
 <% if(message && message.length >0){ %>
   <div class="alert alert-warning alert-dismissible animated bounce" style="position: absolute;
 	top: 15%;
@@ -145,9 +164,10 @@
                                       <label for="usr">Title:</label>
                                       <input value="<%= news.title %>" name="title" type="text" class="form-control" id="usr">
                                     </div>
+
                                     <div class="form-group">
                                       <label for="comment">Content:</label>
-                                      <textarea style="width: 100%;" value="<%= news.content %>" name="content" class="form-control" rows="5" id="comment">
+                                      <textarea style="width: 100%;"  name="content" class="form-control" rows="5" id="comment">
                                         <%= news.content %>
                                       </textarea>
                                     </div>
