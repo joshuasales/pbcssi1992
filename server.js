@@ -11,7 +11,11 @@ var flash = require('express-flash');
 var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var methodOverride = require('method-override');
-
+var path = require('path');
+var crypto = require('crypto');
+var multer = require('multer');
+var GridFsStorage = require('multer-gridfs-storage');
+var Grid = require('gridfs-stream');
 var secret = require('./config/secret');
 var User = require('./models/user');
 
@@ -33,6 +37,7 @@ app.use(
   }),
 );
 app.use(flash());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
@@ -57,12 +62,14 @@ var userRoutes = require('./routes/user');
 var adminRoutes = require('./routes/admin-user');
 var studentRoutes = require('./routes/student');
 var facultyRoutes = require('./routes/faculty');
+var uploadRoutes = require('./routes/upload.js');
 
 app.use(studentRoutes);
 app.use(facultyRoutes);
 app.use(mainRoutes);
 app.use(userRoutes);
 app.use(adminRoutes);
+app.use(uploadRoutes);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Server is starting in ' + secret.port);
